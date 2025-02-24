@@ -11,15 +11,15 @@ public:
   vec3() : e{0, 0, 0} {}
   vec3(double x, double y, double z) : e{x, y, z} {}
 
-  double x() { return e[0]; }
-  double y() { return e[1]; }
-  double z() { return e[2]; }
+  double x() const { return e[0]; }
+  double y() const { return e[1]; }
+  double z() const { return e[2]; }
 
   vec3 operator-() const { return vec3(-e[0], -e[1], -e[2]); }
   double operator[](int i) const { return e[i]; }  // Read access -> double x = v[0];
   double &operator[](int i) { return e[i]; }       // Write access -> v[0] = 5;
 
-  vec3 operator+(const vec3 &v)
+  vec3 operator+=(const vec3 &v)
   {
     e[0] += v.e[0];
     e[1] += v.e[1];
