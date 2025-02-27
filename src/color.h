@@ -3,17 +3,22 @@
 
 #include <iostream>
 
+#include "interval.h"
 #include "vec3.h"
 
 using color = vec3;
-void print_color(std::ostream &out, color &colors)
+void print_color(std::ostream &out, const color &colors)
 {
-  // get the value and convert it into range [0, 255];
-  auto r = int(255.999 * colors.x());
-  auto g = int(255.999 * colors.y());
-  auto b = int(255.999 * colors.z());
+  auto r = colors.x();
+  auto g = colors.y();
+  auto b = colors.z();
 
-  out << r << ' ' << g << ' ' << b << std::endl;
+  static const interval intensity(0.000, 0.999);
+  int rbyte = int(256 * intensity.clamp(r));
+  int gbyte = int(256 * intensity.clamp(g));
+  int bbyte = int(256 * intensity.clamp(b));
+
+  out << rbyte << ' ' << gbyte << ' ' << bbyte << '\n';
 }
 
 #endif  // !COLOR_H
