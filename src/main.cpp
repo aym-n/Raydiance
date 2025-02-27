@@ -1,12 +1,12 @@
 #include <algorithm>
 #include <iostream>
-#include <memory>
 #include <ostream>
 
 #include "color.h"
 #include "constants.h"
 #include "hittable.h"
 #include "hittable_list.h"
+#include "interval.h"
 #include "ray.h"
 #include "sphere.h"
 #include "vec3.h"
@@ -28,7 +28,7 @@ double hit_sphere(const point3 &center, double radius, const ray &r)
 color ray_color(const ray &r, const hittable &world)
 {
   hit_record rec;
-  if (world.hit(r, 0, infinity, rec))
+  if (world.hit(r, interval(0, infinity), rec))
     return 0.5 * (rec.normal + color(1, 1, 1));
 
   vec3 unit_direction = unit_vector(r.direction());
