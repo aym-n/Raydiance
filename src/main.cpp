@@ -11,20 +11,6 @@
 #include "sphere.h"
 #include "vec3.h"
 
-double hit_sphere(const point3 &center, double radius, const ray &r)
-{
-  vec3 oc = center - r.origin();
-
-  auto a = r.direction().length_squared();
-  auto h = dot(r.direction(), oc);
-  auto c = oc.length_squared() - radius * radius;
-  auto d = h * h - a * c;
-
-  if (d < 0)
-    return -1.0;
-  return (h - std::sqrt(d)) / a;
-}
-
 color ray_color(const ray &r, const hittable &world)
 {
   hit_record rec;
