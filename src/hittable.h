@@ -1,8 +1,10 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
+#include <memory>
 #include "interval.h"
 #include "ray.h"
+class material;
 
 class hit_record
 {
@@ -11,6 +13,7 @@ public:
   vec3 normal;
   double t;
   bool front_face;
+  std::shared_ptr<material> mat;
 
   void set_face_normal(const ray &r, const vec3 &outward_normal)
   {
