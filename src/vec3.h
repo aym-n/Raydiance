@@ -111,4 +111,14 @@ inline vec3 refract(const vec3 &uv, const vec3 &n, double ri)
   return r_parallel + r_perp;
 }
 
+inline vec3 random_in_unit_disk()
+{
+  while (true)
+  {
+    auto p = vec3(random_double(-1, 1), random_double(-1, 1), 0);
+    if (p.length_squared() < 1)
+      return p;
+  }
+}
+
 #endif  // !VEC3_H
