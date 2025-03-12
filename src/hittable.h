@@ -2,9 +2,10 @@
 #define HITTABLE_H
 
 #include <memory>
+
+#include "aabb.h"
 #include "interval.h"
 #include "ray.h"
-#include "aabb.h"
 
 class material;
 
@@ -14,6 +15,8 @@ public:
   point3 p;
   vec3 normal;
   double t;
+  double u;
+  double v;
   bool front_face;
   std::shared_ptr<material> mat;
 
