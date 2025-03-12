@@ -15,13 +15,23 @@ public:
   sphere(const point3 &static_center, double radius, shared_ptr<material> mat)
       : center(static_center, vec3(0, 0, 0)), radius(std::fmax(0, radius)), mat(mat)
   {
+    auto rvec = vec3(radius, radius, radius);
+    bbox = aabb(static_center - rvec, static_center + rvec);
   }
 
   // Moving Sphere
   sphere(const point3 &center1, const point3 &center2, double radius, shared_ptr<material> mat)
       : center(center1, center2 - center1), radius(std::fmax(0, radius)), mat(mat)
   {
+
+    auto rvec = vec3(radius, radius, radius);
+    aabb b1(center.at(0) - rvec, center.at(1) + rvec);
+    aabb b2(center.at(1) - rvec, center.at(2) + rvec);
+
+    bbox = aabb(b1, b2);
   }
+
+  aabb bounding_box() const override { return bbox; }
 
   bool hit(const ray &r, interval ray_t, hit_record &rec) const override
   {
@@ -57,6 +67,7 @@ private:
   ray center;
   double radius;
   std::shared_ptr<material> mat;
+  aabb bbox;
 };
 
 #endif  // !SPHERE_H
